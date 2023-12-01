@@ -3,8 +3,9 @@
 <div align="center">
 	<br>
 	<div>
-		<img width="600" height="600" src="https://aplwiki.com/images/0/0d/Advent_Of_Code_Logo.png" alt="Advent Of Code">
+		<img src="https://blogs.sap.com/wp-content/uploads/2020/11/EkaoQQTXEAMA4BN.jpg" alt="Advent Of Code">
 	</div>
+	<br>
 </div>
 
 This repository contains my solutions for the Advent of Code challenges. Advent of Code is an annual coding event with daily programming puzzles released during December. These solutions are implemented in Clojure, aiming to solve each day's problem efficiently and elegantly.
