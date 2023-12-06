@@ -27,17 +27,36 @@
           (recur (conj result match))
           result)))))
 
-(defn index-of-numbers [numbers line]
-  (->> (for [number numbers
-             :let [index (str/index-of line number)]]
-         [number index])
-       flatten
-       (apply hash-map)))
-
 (defn is-special? [char]
   (and
    (not (re-matches #"[0-9.]" (str char)))
    (not (nil? char))))
+
+(defn is-numeric? [char]
+  (re-matches #"[0-9]" (str char)))
+
+(defn strict-index-of [needle haystack]
+  (loop [current-index 0 index-of nil]
+    (let [current-char (get haystack current-index)
+          whole (slice haystack current-index (+ current-index (count needle)))
+          before (get haystack (dec current-index))
+          after (get haystack (+ current-index (count needle)))]
+      (if (and
+           (= (first needle) current-char)
+           (= (last needle) (last whole))
+           (or (nil? before) (not (is-numeric? before)))
+           (or (nil? after) (not (is-numeric? after))))
+        current-index
+        (if (>= current-index (count haystack))
+          index-of
+          (recur (inc current-index) index-of))))))
+
+(defn index-of-numbers [numbers line]
+  (->> (for [number numbers
+             :let [index (strict-index-of number line)]]
+         [number index])
+       flatten
+       (apply hash-map)))
 
 (defn parse-line [index line]
   (let [numbers (find-numbers line)
@@ -52,6 +71,13 @@
        (filter
         (fn [[number index]]
           (let [before (dec index) after (+ 1 index (count number))]
+            (println)
+            (println "----------------------------------")
+            (println "Looking stuff related to: " number)
+            (doseq [char (slice line before after)]
+              (println char (is-special? char)))
+            (println "----------------------------------")
+            (println)
             (some is-special? (vec (slice line before after)))))
         numbers)))
 
