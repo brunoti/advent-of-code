@@ -111,13 +111,12 @@
        (map-indexed parse-line)
        (vec)
        (find-valid-numbers)
-       (map :all)
-       (flatten)
+       ; (map :all)
+       ; (flatten)
        ; (distinct)
-       (map #(Integer/parseInt %))
-       (apply +)
-       ; (pprint)
-       ))
+       ; (map #(Integer/parseInt %))
+       ; (apply +)
+       (pprint)))
 
 (defn -main []
   (println "Part 1:" (part-1))

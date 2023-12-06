@@ -290,3 +290,4 @@ tags
 # End of https://www.toptal.com/developers/gitignore/api/clojure,java,yarn,node,dotenv,vim,linux,macos,visualstudiocode
 
 .clj-kondo
+day*.txt
