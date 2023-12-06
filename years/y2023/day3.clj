@@ -20,12 +20,7 @@
     (catch Exception e nil)))
 
 (defn find-numbers [line]
-  (let [matcher (re-matcher #"\d+" line)]
-    (loop [result []]
-      (let [match (re-find matcher)]
-        (if match
-          (recur (conj result match))
-          result)))))
+  (re-seq #"\d+" line))
 
 (defn is-special? [char]
   (and
@@ -71,13 +66,13 @@
        (filter
         (fn [[number index]]
           (let [before (dec index) after (+ 1 index (count number))]
-            (println)
-            (println "----------------------------------")
-            (println "Looking stuff related to: " number)
-            (doseq [char (slice line before after)]
-              (println char (is-special? char)))
-            (println "----------------------------------")
-            (println)
+            ; (println)
+            ; (println "----------------------------------")
+            ; (println "Looking stuff related to: " number)
+            ; (doseq [char (slice line before after)]
+            ;   (println char (is-special? char)))
+            ; (println "----------------------------------")
+            ; (println)
             (some is-special? (vec (slice line before after)))))
         numbers)))
 
